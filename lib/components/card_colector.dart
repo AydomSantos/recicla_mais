@@ -31,12 +31,14 @@ class DetalhesColetaCard extends StatefulWidget {
   final ColetaCardData data;
   final VoidCallback? onVisualizarFotoTap; 
   final VoidCallback? onAceitarColetaTap; 
+  final VoidCallback? onCancelarColetaTap;
 
   const DetalhesColetaCard({
     super.key,
     required this.data,
     this.onVisualizarFotoTap,
     this.onAceitarColetaTap,
+    this.onCancelarColetaTap,
   });
 
   @override
@@ -181,27 +183,48 @@ class _DetalhesColetaCardState extends State<DetalhesColetaCard> {
                     ),
                     const SizedBox(width: 8),
                     // Botão para aceitar a coleta
-                    Expanded(
-                      flex: 2, // Ocupa mais espaço
-                      child: ElevatedButton(
-                        onPressed: widget.onAceitarColetaTap,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF3493F2),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5.0),
+                    if (widget.onAceitarColetaTap != null)
+                      Expanded(
+                        flex: 2, // Ocupa mais espaço
+                        child: ElevatedButton(
+                          onPressed: widget.onAceitarColetaTap,
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF3493F2),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
+                            padding: const EdgeInsets.symmetric(vertical: 12),
                           ),
-                          padding: const EdgeInsets.symmetric(vertical: 12),
-                        ),
-                        child: const Text(
-                          'Aceitar Coleta',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
+                          child: const Text(
+                            'Aceitar Coleta',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
-                      ),
-                    ),
+                      )
+                    // Botão para cancelar a coleta (exibido no histórico)
+                    else if (widget.onCancelarColetaTap != null)
+                      Expanded(
+                        flex: 2,
+                        child: OutlinedButton(
+                          onPressed: widget.onCancelarColetaTap,
+                          style: OutlinedButton.styleFrom(
+                            foregroundColor: Colors.red,
+                            side: const BorderSide(color: Colors.red),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                          ),
+                          child: const Text(
+                            'Cancelar Coleta',
+                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      )
                   ],
                 ),
               ],

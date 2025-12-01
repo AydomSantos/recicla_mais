@@ -1,29 +1,29 @@
 import 'package:flutter/material.dart';
-import '../components/card_colector.dart';
+import 'package:recicla_mais/components/card_colector.dart';
 
-class ColetasDisponiveisPage extends StatelessWidget {
+class HistoricoColetasPage extends StatelessWidget {
   final List<ColetaCardData> coletas;
-  final Function(ColetaCardData) onAceitarColeta;
+  final Function(ColetaCardData) onCancelarColeta;
 
-  const ColetasDisponiveisPage({
+  const HistoricoColetasPage({
     super.key,
     required this.coletas,
-    required this.onAceitarColeta,
+    required this.onCancelarColeta,
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Coletas Disponíveis'),
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
+        title: const Text('Histórico de Coletas'),
         automaticallyImplyLeading: false, // Remove o botão de voltar
       ),
       body: coletas.isEmpty
           ? const Center(
               child: Text(
-                'Nenhuma coleta disponível no momento.',
+                'Nenhuma coleta foi aceita ainda.',
                 style: TextStyle(fontSize: 18, color: Colors.grey),
               ),
             )
@@ -33,11 +33,11 @@ class ColetasDisponiveisPage extends StatelessWidget {
                 final coleta = coletas[index];
                 return Padding(
                   padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+                  // Reutilizamos o mesmo card, mas sem a função de 'aceitar'
                   child: DetalhesColetaCard(
-                    data: coleta,
-                    onVisualizarFotoTap: () {},
-                    onAceitarColetaTap: () => onAceitarColeta(coleta),
-                  ),
+                      data: coleta,
+                      onVisualizarFotoTap: () {},
+                      onCancelarColetaTap: () => onCancelarColeta(coleta)),
                 );
               },
             ),

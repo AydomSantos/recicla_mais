@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:recicla_mais/pages/coletas_disponiveis_page.dart';
+import 'package:recicla_mais/pages/coletor_home_page.dart';
 
 // pagina de login do usuario coletor
 class LoginPageColetor extends StatefulWidget {
@@ -92,11 +92,11 @@ class _LoginPageColetorState extends State<LoginPageColetor> {
                 height: 50,
                 child: ElevatedButton(
                   onPressed: () {
-                    // Navega para a página de coletas, permitindo voltar.
-                    Navigator.push(
+                    // Navega para a nova home page do coletor, que gerencia as abas
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const ColetasDisponiveisPage()),
+                          builder: (context) => const ColetorHomePage()),
                     );
                   },
                   style: ElevatedButton.styleFrom(
