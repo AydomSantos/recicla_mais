@@ -9,6 +9,7 @@ import 'package:recicla_mais/features/collector/presentation/pages/notifications
 class AvailableCollectionsPage extends StatefulWidget {
   /// A lista de coletas disponíveis a serem exibidas.
   final List<CollectionCardData> coletas;
+
   /// Callback acionado quando o coletor aceita uma coleta.
   final Function(CollectionCardData) onAceitarColeta;
 
@@ -28,12 +29,15 @@ class AvailableCollectionsPage extends StatefulWidget {
 class _AvailableCollectionsPageState extends State<AvailableCollectionsPage> {
   /// O bairro atualmente selecionado para o filtro. Nulo se nenhum filtro de bairro estiver ativo.
   String? _bairroSelecionado;
+
   /// O termo de busca atual inserido pelo usuário no campo de texto.
   String _searchQuery = '';
 
   /// Retorna a lista de coletas após aplicar os filtros de bairro e busca.
   List<CollectionCardData> get _coletasFiltradas {
     return widget.coletas.where((coleta) {
+      // Only show approved collections
+      final isApproved = coleta.status == CollectionStatus.approved;
       final matchBairro =
           _bairroSelecionado == null ||
           _bairroSelecionado == 'Todos' ||
@@ -43,7 +47,7 @@ class _AvailableCollectionsPageState extends State<AvailableCollectionsPage> {
           coleta.nomeSolicitante.toLowerCase().contains(
             _searchQuery.toLowerCase(),
           );
-      return matchBairro && matchSearch;
+      return isApproved && matchBairro && matchSearch;
     }).toList();
   }
 
@@ -74,7 +78,9 @@ class _AvailableCollectionsPageState extends State<AvailableCollectionsPage> {
               return ListTile(
                 title: Text(bairro),
                 leading: Checkbox(
-                  value: _bairroSelecionado == bairro || (_bairroSelecionado == null && bairro == 'Todos'),
+                  value:
+                      _bairroSelecionado == bairro ||
+                      (_bairroSelecionado == null && bairro == 'Todos'),
                   onChanged: (value) {
                     setState(() {
                       _bairroSelecionado = bairro == 'Todos' ? null : bairro;

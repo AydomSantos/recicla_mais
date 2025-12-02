@@ -243,7 +243,7 @@ class _CreateCollectionPageState extends State<CreateCollectionPage> {
                       pesoEstimado: 'N/A', // Not in form
                       detalhesAdicionais: _descriptionController.text,
                       observacoes: _descriptionController.text,
-                      status: CollectionStatus.available,
+                      status: CollectionStatus.pending,
                       collectionCode: '12345',
                       bairro: _neighborhoodController.text,
                     );

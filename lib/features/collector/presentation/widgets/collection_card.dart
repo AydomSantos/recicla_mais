@@ -12,6 +12,12 @@ enum CollectionStatus {
 
   /// A coleta foi concluída com sucesso.
   completed,
+
+  /// A coleta foi aprovada pelo administrador e está visível para coletores.
+  approved,
+
+  /// A coleta foi rejeitada pelo administrador.
+  rejected,
 }
 
 /// Representa o modelo de dados para uma única solicitação de coleta.
