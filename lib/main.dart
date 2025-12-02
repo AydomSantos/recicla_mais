@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 // importação das Paginas do App Recicla
-import 'features/auth/presentation/pages/login_page.dart';
+
+import 'features/user/presentation/pages/user_home_page.dart';
 
 // função principal responsavel por execulta o app
 void main() {
@@ -15,8 +16,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: const LoginPage(),
-    );
+    return MaterialApp(home: const UserHomePage());
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// Force rebuild
+
 /// Define os possíveis status de uma solicitação de coleta.
 enum CollectionStatus {
   /// A coleta está disponível para ser aceita por um coletor.
@@ -19,26 +21,37 @@ enum CollectionStatus {
 class CollectionCardData {
   /// O intervalo de tempo estimado para a realização da coleta.
   final String tempoColeta;
+
   /// A distância aproximada até o local da coleta.
   final String distanciaKm;
+
   /// O nome do usuário que solicitou a coleta.
   final String nomeSolicitante;
+
   /// O endereço completo para a coleta.
   final String endereco;
+
   /// Um ponto de referência para ajudar a localizar o endereço.
   final String referencia;
+
   /// A categoria do material a ser coletado (ex: Plástico, Vidro).
   final String tipoMaterial;
+
   /// O peso aproximado do material.
   final String pesoEstimado;
+
   /// Informações adicionais sobre o material.
   final String detalhesAdicionais;
+
   /// Observações gerais do solicitante para o coletor.
   final String observacoes;
+
   /// O status atual da coleta (disponível, pendente, concluída).
   final CollectionStatus status;
+
   /// Um código único para identificar a coleta.
   final String collectionCode;
+
   /// O bairro onde a coleta será realizada, usado para filtros.
   final String bairro;
 
@@ -66,16 +79,24 @@ class CollectionCardData {
 class CollectionDetailsCard extends StatelessWidget {
   /// Os dados da coleta a serem exibidos no card.
   final CollectionCardData data;
+
   /// Callback acionado ao tocar no botão "Visualizar foto do material".
   final VoidCallback? onVisualizarFotoTap;
+
   /// Callback acionado ao tocar no ícone de chat.
   final VoidCallback? onChatTap;
+
   /// Callback acionado ao tocar no botão "Aceitar Solicitação".
   final VoidCallback? onAceitarColetaTap;
+
   /// Callback acionado ao tocar no botão "Cancelar".
   final VoidCallback? onCancelarColetaTap;
+
   /// Callback acionado ao tocar no botão "Finalizar".
   final VoidCallback? onFinalizarColetaTap;
+
+  /// Callback acionado ao tocar no ícone de "Deletar" (Lixeira).
+  final VoidCallback? onDeleteTap;
 
   /// Cria uma instância de [CollectionDetailsCard].
   const CollectionDetailsCard({
@@ -86,6 +107,7 @@ class CollectionDetailsCard extends StatelessWidget {
     this.onAceitarColetaTap,
     this.onCancelarColetaTap,
     this.onFinalizarColetaTap,
+    this.onDeleteTap,
   });
 
   @override
@@ -125,6 +147,16 @@ class CollectionDetailsCard extends StatelessWidget {
                     fontSize: 14,
                   ),
                 ),
+                const Spacer(),
+                if (onDeleteTap != null)
+                  GestureDetector(
+                    onTap: onDeleteTap,
+                    child: const Icon(
+                      Icons.delete_outline,
+                      color: Colors.white,
+                      size: 24,
+                    ),
+                  ),
               ],
             ),
           ),
@@ -153,7 +185,9 @@ class CollectionDetailsCard extends StatelessWidget {
                         padding: const EdgeInsets.only(left: 8.0),
                         child: Container(
                           decoration: BoxDecoration(
-                            color: const Color(0xFF3493F2).withValues(alpha: 0.15),
+                            color: const Color(
+                              0xFF3493F2,
+                            ).withValues(alpha: 0.15),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: IconButton(
@@ -205,8 +239,9 @@ class CollectionDetailsCard extends StatelessWidget {
                                         height: 300,
                                         decoration: BoxDecoration(
                                           color: Colors.grey[200],
-                                          borderRadius:
-                                              BorderRadius.circular(8),
+                                          borderRadius: BorderRadius.circular(
+                                            8,
+                                          ),
                                           border: Border.all(
                                             color: Colors.grey[400]!,
                                           ),
@@ -242,9 +277,7 @@ class CollectionDetailsCard extends StatelessWidget {
                                       const SizedBox(height: 16),
                                       Text(
                                         'Peso estimado: ${data.pesoEstimado}',
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                        ),
+                                        style: const TextStyle(fontSize: 14),
                                       ),
                                     ],
                                   ),
@@ -256,9 +289,7 @@ class CollectionDetailsCard extends StatelessWidget {
                       },
                       style: OutlinedButton.styleFrom(
                         foregroundColor: const Color(0xFF00C2FF),
-                        side: const BorderSide(
-                          color: Color(0xFF00C2FF),
-                        ),
+                        side: const BorderSide(color: Color(0xFF00C2FF)),
                         padding: const EdgeInsets.symmetric(
                           horizontal: 12,
                           vertical: 10,
