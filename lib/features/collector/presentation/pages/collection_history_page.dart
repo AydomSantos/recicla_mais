@@ -78,8 +78,14 @@ class CollectionHistoryPage extends StatelessWidget {
                       MaterialPageRoute(
                         builder: (context) => CollectionInProgressPage(
                           coleta: coleta,
-                          onFinalizar: () => onFinalizarColeta(coleta),
-                          onCancelar: () => onCancelarColeta(coleta),
+                          onFinalizar: () {
+                            Navigator.pop(context);
+                            onFinalizarColeta(coleta);
+                          },
+                          onCancelar: () {
+                            Navigator.pop(context);
+                            onCancelarColeta(coleta);
+                          },
                         ),
                       ),
                     );

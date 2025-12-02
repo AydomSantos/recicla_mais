@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:recicla_mais/features/collector/presentation/widgets/collection_card.dart';
 import 'package:recicla_mais/features/collector/presentation/pages/available_collections_page.dart';
 import 'package:recicla_mais/features/collector/presentation/pages/collection_history_page.dart';
+import 'package:recicla_mais/features/collector/presentation/pages/settings_page.dart';
 
 class CollectorHomePage extends StatefulWidget {
   const CollectorHomePage({super.key});
@@ -30,6 +31,7 @@ class _CollectorHomePageState extends State<CollectorHomePage> {
       detalhesAdicionais: 'Garrafas PET e embalagens limpas.',
       observacoes: 'Favor trazer sacos resistentes.',
       collectionCode: '12345',
+      bairro: 'Centro',
     ),
     CollectionCardData(
       tempoColeta: 'Hoje, 15:30 - 17:00',
@@ -42,6 +44,46 @@ class _CollectorHomePageState extends State<CollectorHomePage> {
       detalhesAdicionais: 'Caixas de papelão desmontadas e garrafas de vidro.',
       observacoes: 'Cuidado com os cacos de vidro.',
       collectionCode: '67890',
+      bairro: 'Brasília',
+    ),
+    CollectionCardData(
+      tempoColeta: 'Amanhã, 08:00 - 10:00',
+      distanciaKm: '1.2 km',
+      nomeSolicitante: 'João Souza',
+      endereco: 'Rua das Flores, 45',
+      referencia: 'Próximo ao mercado',
+      tipoMaterial: 'Eletrônicos',
+      pesoEstimado: '3kg',
+      detalhesAdicionais: 'Teclados, mouses e cabos antigos.',
+      observacoes: 'Ligar antes de chegar.',
+      collectionCode: '11223',
+      bairro: 'Primavera',
+    ),
+    CollectionCardData(
+      tempoColeta: 'Amanhã, 14:00 - 16:00',
+      distanciaKm: '8.5 km',
+      nomeSolicitante: 'Empresa Tech',
+      endereco: 'Av. Industrial, 500',
+      referencia: 'Galpão 3',
+      tipoMaterial: 'Papel e Plástico',
+      pesoEstimado: '50kg',
+      detalhesAdicionais: 'Grande quantidade de material de escritório.',
+      observacoes: 'Procurar por Carlos na portaria.',
+      collectionCode: '44556',
+      bairro: 'Senador Nilo Coelho',
+    ),
+    CollectionCardData(
+      tempoColeta: 'Sexta, 09:00 - 11:00',
+      distanciaKm: '3.0 km',
+      nomeSolicitante: 'Ana Pereira',
+      endereco: 'Rua da Paz, 200',
+      referencia: 'Casa amarela',
+      tipoMaterial: 'Metal',
+      pesoEstimado: '15kg',
+      detalhesAdicionais: 'Latas de alumínio e panelas velhas.',
+      observacoes: 'Pode tocar a campainha.',
+      collectionCode: '77889',
+      bairro: 'Baixão',
     ),
   ];
 
@@ -68,6 +110,7 @@ class _CollectorHomePageState extends State<CollectorHomePage> {
         observacoes: coleta.observacoes,
         status: CollectionStatus.pending,
         collectionCode: coleta.collectionCode,
+        bairro: coleta.bairro,
       );
       _coletasAceitas.add(novaColeta);
     });
@@ -93,6 +136,7 @@ class _CollectorHomePageState extends State<CollectorHomePage> {
           observacoes: coleta.observacoes,
           status: CollectionStatus.completed,
           collectionCode: coleta.collectionCode,
+          bairro: coleta.bairro,
         );
       }
     });
@@ -120,6 +164,7 @@ class _CollectorHomePageState extends State<CollectorHomePage> {
         observacoes: coleta.observacoes,
         status: CollectionStatus.available,
         collectionCode: coleta.collectionCode,
+        bairro: coleta.bairro,
       );
       _coletasDisponiveis.add(novaColeta);
     });
@@ -141,6 +186,7 @@ class _CollectorHomePageState extends State<CollectorHomePage> {
         onCancelarColeta: _cancelarColeta,
         onFinalizarColeta: _finalizarColeta,
       ),
+      const SettingsPage(),
     ];
 
     return Scaffold(
@@ -156,6 +202,10 @@ class _CollectorHomePageState extends State<CollectorHomePage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.history),
             label: 'Histórico',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Configurações',
           ),
         ],
       ),

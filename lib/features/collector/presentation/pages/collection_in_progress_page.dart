@@ -52,7 +52,73 @@ class CollectionInProgressPage extends StatelessWidget {
             // Botão Visualizar Foto
             OutlinedButton(
               onPressed: () {
-                // Ação para ver foto
+                showDialog(
+                  context: context,
+                  builder: (context) => Dialog(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        AppBar(
+                          title: const Text('Foto do Material'),
+                          automaticallyImplyLeading: false,
+                          actions: [
+                            IconButton(
+                              icon: const Icon(Icons.close),
+                              onPressed: () => Navigator.pop(context),
+                            ),
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            children: [
+                              Container(
+                                width: double.infinity,
+                                height: 300,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey[200],
+                                  borderRadius: BorderRadius.circular(8),
+                                  border: Border.all(color: Colors.grey[400]!),
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.image,
+                                      size: 80,
+                                      color: Colors.grey[400],
+                                    ),
+                                    const SizedBox(height: 16),
+                                    Text(
+                                      'Imagem do Material',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        color: Colors.grey[600],
+                                      ),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Text(
+                                      coleta.tipoMaterial,
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.grey[500],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+                              Text(
+                                'Peso estimado: ${coleta.pesoEstimado}',
+                                style: const TextStyle(fontSize: 14),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
               },
               style: OutlinedButton.styleFrom(
                 side: const BorderSide(color: Colors.lightBlue),
@@ -91,10 +157,7 @@ class CollectionInProgressPage extends StatelessWidget {
 
             // Botão Finalizar
             ElevatedButton(
-              onPressed: () {
-                onFinalizar();
-                Navigator.pop(context); // Volta para a lista
-              },
+              onPressed: onFinalizar,
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF3493F2),
                 shape: RoundedRectangleBorder(
@@ -116,10 +179,7 @@ class CollectionInProgressPage extends StatelessWidget {
 
             // Botão Cancelar
             ElevatedButton(
-              onPressed: () {
-                onCancelar();
-                Navigator.pop(context); // Volta para a lista
-              },
+              onPressed: onCancelar,
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFFD32F2F), // Vermelho
                 shape: RoundedRectangleBorder(

@@ -16,6 +16,7 @@ class CollectionCardData {
   final String observacoes;
   final CollectionStatus status;
   final String collectionCode;
+  final String bairro;
 
   const CollectionCardData({
     required this.tempoColeta,
@@ -28,12 +29,13 @@ class CollectionCardData {
     required this.detalhesAdicionais,
     required this.observacoes,
     this.status = CollectionStatus.available,
-    this.collectionCode = '', // Valor padrão vazio por enquanto
+    this.collectionCode = '',
+    this.bairro = '',
   });
 }
 // -----------------------
 
-class CollectionDetailsCard extends StatefulWidget {
+class CollectionDetailsCard extends StatelessWidget {
   final CollectionCardData data;
   final VoidCallback? onVisualizarFotoTap;
   final VoidCallback? onAceitarColetaTap;
@@ -50,52 +52,8 @@ class CollectionDetailsCard extends StatefulWidget {
   });
 
   @override
-  State<CollectionDetailsCard> createState() => _CollectionDetailsCardState();
-}
-
-class _CollectionDetailsCardState extends State<CollectionDetailsCard> {
-  // Controla se o card está expandido ou não
-  bool _isExpanded = false;
-
-  // Função auxiliar para criar as linhas de informação (rótulo: valor)
-  Widget _buildDetailRow(String label, String value) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 2.0),
-      child: RichText(
-        text: TextSpan(
-          style: const TextStyle(fontSize: 16.0, color: Colors.black),
-          children: <TextSpan>[
-            // Rótulo em negrito (ex: Nome : )
-            TextSpan(
-              text: '$label: ',
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
-            // Valor (ex: Aydom)
-            TextSpan(
-              text: value,
-              style: const TextStyle(fontWeight: FontWeight.normal),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  // Função auxiliar para criar cabeçalhos de seção
-  Widget _buildSectionTitle(String title) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 16.0, bottom: 8.0),
-      child: Text(
-        title,
-        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-      ),
-    );
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Container(
-      // Container principal com a borda preta/cinza
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(5.0),
@@ -111,127 +69,207 @@ class _CollectionDetailsCardState extends State<CollectionDetailsCard> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          // --- 1. Header Azul (Tempo de Coleta) ---
+          // --- Header Azul (Tempo de Coleta) ---
           Container(
             padding: const EdgeInsets.symmetric(
               horizontal: 16.0,
               vertical: 12.0,
             ),
-            decoration: BoxDecoration(
-              color: Colors.blue.shade600, // Cor de fundo azul forte
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(3.0),
-                topRight: Radius.circular(3.0),
-              ),
-            ),
+            color: const Color(0xFF3493F2),
             child: Row(
               children: [
                 const Icon(Icons.access_time, color: Colors.white, size: 20),
                 const SizedBox(width: 8.0),
-                Expanded(
-                  child: Text(
-                    widget.data.tempoColeta,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                const Spacer(),
-                const Icon(Icons.route_outlined, color: Colors.white, size: 20),
-                const SizedBox(width: 4.0),
                 Text(
-                  widget.data.distanciaKm,
+                  'Tempo de coleta: ${data.tempoColeta}',
                   style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
-                    fontSize: 16,
+                    fontSize: 14,
                   ),
                 ),
               ],
             ),
           ),
 
-          // --- 2. Corpo do Card (Detalhes) ---
+          // --- Corpo do Card ---
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                // --- Visão Resumida ---
-                _buildDetailRow('Nome', widget.data.nomeSolicitante),
-                _buildDetailRow('Endereço', widget.data.endereco),
-                _buildDetailRow('Material', widget.data.tipoMaterial),
-
-                const SizedBox(height: 16),
-
-                // --- Conteúdo Expansível ---
-                AnimatedCrossFade(
-                  firstChild: const SizedBox.shrink(), // Vazio quando recolhido
-                  secondChild: _buildExpandedContent(), // Conteúdo detalhado
-                  crossFadeState: _isExpanded
-                      ? CrossFadeState.showSecond
-                      : CrossFadeState.showFirst,
-                  duration: const Duration(milliseconds: 300),
-                ),
-
-                const SizedBox(height: 16),
-
-                // --- Botões de Ação ---
+              children: [
+                // Informações do Solicitante
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // Botão para expandir/recolher
-                    Expanded(
-                      child: TextButton(
+                    const Text(
+                      'Informações do Solicitante',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                      ),
+                    ),
+                    if (onVisualizarFotoTap != null)
+                      OutlinedButton(
                         onPressed: () {
-                          setState(() {
-                            _isExpanded = !_isExpanded;
-                          });
+                          // Mostra diálogo com a imagem
+                          showDialog(
+                            context: context,
+                            builder: (context) => Dialog(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  AppBar(
+                                    title: const Text('Foto do Material'),
+                                    automaticallyImplyLeading: false,
+                                    actions: [
+                                      IconButton(
+                                        icon: const Icon(Icons.close),
+                                        onPressed: () => Navigator.pop(context),
+                                      ),
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Column(
+                                      children: [
+                                        // Placeholder de imagem
+                                        Container(
+                                          width: double.infinity,
+                                          height: 300,
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey[200],
+                                            borderRadius: BorderRadius.circular(
+                                              8,
+                                            ),
+                                            border: Border.all(
+                                              color: Colors.grey[400]!,
+                                            ),
+                                          ),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.image,
+                                                size: 80,
+                                                color: Colors.grey[400],
+                                              ),
+                                              const SizedBox(height: 16),
+                                              Text(
+                                                'Imagem do Material',
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  color: Colors.grey[600],
+                                                ),
+                                              ),
+                                              const SizedBox(height: 8),
+                                              Text(
+                                                data.tipoMaterial,
+                                                style: TextStyle(
+                                                  fontSize: 14,
+                                                  color: Colors.grey[500],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        const SizedBox(height: 16),
+                                        Text(
+                                          'Peso estimado: ${data.pesoEstimado}',
+                                          style: const TextStyle(fontSize: 14),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
                         },
-                        child: Text(
-                          _isExpanded ? 'Ver menos' : 'Ver detalhes',
-                          style: const TextStyle(
-                            color: Colors.blue,
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: const Color(
+                            0xFF00C2FF,
+                          ), // Azul ciano do botão
+                          side: const BorderSide(color: Color(0xFF00C2FF)),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 0,
+                          ),
+                          minimumSize: const Size(0, 32),
+                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4.0),
+                          ),
+                        ),
+                        child: const Text(
+                          'Visualizar foto do material',
+                          style: TextStyle(
+                            fontSize: 12,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(width: 8),
-                    // Botão para aceitar a coleta (Disponível)
-                    if (widget.data.status == CollectionStatus.available &&
-                        widget.onAceitarColetaTap != null)
-                      Expanded(
-                        flex: 2,
-                        child: ElevatedButton(
-                          onPressed: widget.onAceitarColetaTap,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF3493F2),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                            padding: const EdgeInsets.symmetric(vertical: 12),
-                          ),
-                          child: const Text(
-                            'Aceitar Coleta',
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                _buildDetailRow('Nome', data.nomeSolicitante),
+                _buildDetailRow('Endereço', data.endereco),
+                _buildDetailRow('Ponto de Referência', data.referencia),
+
+                const SizedBox(height: 16),
+                const Text(
+                  'Detalhes do Material',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                ),
+                const SizedBox(height: 8),
+                _buildDetailRow('Tipo Material', data.tipoMaterial),
+                _buildDetailRow('Peso Estimado', data.pesoEstimado),
+
+                const SizedBox(height: 16),
+                const Text(
+                  'Observações',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  data.observacoes,
+                  style: const TextStyle(fontSize: 13, color: Colors.black87),
+                ),
+
+                const SizedBox(height: 24),
+
+                // --- Botões de Ação ---
+                if (data.status == CollectionStatus.available &&
+                    onAceitarColetaTap != null)
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: onAceitarColetaTap,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF3493F2),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0),
                         ),
-                      )
-                    // Botões para Pendente (Finalizar e Cancelar)
-                    else if (widget.data.status ==
-                        CollectionStatus.pending) ...[
-                      if (widget.onFinalizarColetaTap != null)
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                      ),
+                      child: const Text(
+                        'Aceitar Solicitação',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  )
+                else if (data.status == CollectionStatus.pending) ...[
+                  Row(
+                    children: [
+                      if (onFinalizarColetaTap != null)
                         Expanded(
-                          flex: 2,
                           child: ElevatedButton(
-                            onPressed: widget.onFinalizarColetaTap,
+                            onPressed: onFinalizarColetaTap,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.green,
                               shape: RoundedRectangleBorder(
@@ -241,20 +279,15 @@ class _CollectionDetailsCardState extends State<CollectionDetailsCard> {
                             ),
                             child: const Text(
                               'Finalizar',
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
+                              style: TextStyle(color: Colors.white),
                             ),
                           ),
                         ),
                       const SizedBox(width: 8),
-                      if (widget.onCancelarColetaTap != null)
+                      if (onCancelarColetaTap != null)
                         Expanded(
-                          flex: 2,
                           child: OutlinedButton(
-                            onPressed: widget.onCancelarColetaTap,
+                            onPressed: onCancelarColetaTap,
                             style: OutlinedButton.styleFrom(
                               foregroundColor: Colors.red,
                               side: const BorderSide(color: Colors.red),
@@ -263,33 +296,22 @@ class _CollectionDetailsCardState extends State<CollectionDetailsCard> {
                               ),
                               padding: const EdgeInsets.symmetric(vertical: 12),
                             ),
-                            child: const Text(
-                              'Cancelar',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                            child: const Text('Cancelar'),
                           ),
                         ),
-                    ]
-                    // Status Concluído (Apenas informativo ou sem botões)
-                    else if (widget.data.status == CollectionStatus.completed)
-                      const Expanded(
-                        flex: 2,
-                        child: Center(
-                          child: Text(
-                            'Coleta Concluída',
-                            style: TextStyle(
-                              color: Colors.green,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ),
+                    ],
+                  ),
+                ] else if (data.status == CollectionStatus.completed)
+                  const Center(
+                    child: Text(
+                      'Coleta Concluída',
+                      style: TextStyle(
+                        color: Colors.green,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
                       ),
-                  ],
-                ),
+                    ),
+                  ),
               ],
             ),
           ),
@@ -298,44 +320,21 @@ class _CollectionDetailsCardState extends State<CollectionDetailsCard> {
     );
   }
 
-  // Widget que constrói a parte detalhada do card
-  Widget _buildExpandedContent() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Divider(height: 24),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildSectionTitle('Mais Detalhes'),
-            Padding(
-              padding: const EdgeInsets.only(top: 16.0),
-              child: OutlinedButton(
-                onPressed: widget.onVisualizarFotoTap,
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: Colors.lightBlue,
-                  side: const BorderSide(color: Colors.lightBlue, width: 1),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 8,
-                  ),
-                ),
-                child: const Text('Ver foto', style: TextStyle(fontSize: 14)),
-              ),
+  Widget _buildDetailRow(String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 4.0),
+      child: RichText(
+        text: TextSpan(
+          style: const TextStyle(fontSize: 14.0, color: Colors.black87),
+          children: <TextSpan>[
+            TextSpan(
+              text: '$label : ',
+              style: const TextStyle(fontWeight: FontWeight.w600), // Semi-bold
             ),
+            TextSpan(text: value),
           ],
         ),
-        _buildDetailRow('Ponto de Referência', widget.data.referencia),
-        _buildDetailRow('Peso Estimado', widget.data.pesoEstimado),
-        _buildDetailRow('Detalhes', widget.data.detalhesAdicionais),
-        const SizedBox(height: 16),
-        _buildSectionTitle('Observações'),
-        Text(widget.data.observacoes, style: const TextStyle(fontSize: 16)),
-      ],
+      ),
     );
   }
 }
