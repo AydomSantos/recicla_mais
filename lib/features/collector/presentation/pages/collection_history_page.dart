@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recicla_mais/features/collector/presentation/widgets/collection_card.dart';
 import 'package:recicla_mais/features/collector/presentation/pages/collection_in_progress_page.dart';
+import 'package:recicla_mais/features/collector/presentation/pages/chat_page.dart';
 
 class CollectionHistoryPage extends StatelessWidget {
   final List<CollectionCardData> coletas;
@@ -94,6 +95,20 @@ class CollectionHistoryPage extends StatelessWidget {
             child: CollectionDetailsCard(
               data: coleta,
               onVisualizarFotoTap: () {},
+              onChatTap: isPending
+                  ? () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ChatPage(
+                            userName: coleta.nomeSolicitante,
+                            userId:
+                                'user_id_placeholder', // Em um app real, viria do objeto coleta
+                          ),
+                        ),
+                      );
+                    }
+                  : null,
               // Se for pendente, passa as ações de cancelar e finalizar
               onCancelarColetaTap: isPending
                   ? () => onCancelarColeta(coleta)

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recicla_mais/features/collector/presentation/widgets/collection_card.dart';
+import 'package:recicla_mais/features/collector/presentation/pages/chat_page.dart';
 
 class CollectionInProgressPage extends StatelessWidget {
   final CollectionCardData coleta;
@@ -49,88 +50,132 @@ class CollectionInProgressPage extends StatelessWidget {
 
             const SizedBox(height: 24),
 
-            // Botão Visualizar Foto
-            OutlinedButton(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) => Dialog(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        AppBar(
-                          title: const Text('Foto do Material'),
-                          automaticallyImplyLeading: false,
-                          actions: [
-                            IconButton(
-                              icon: const Icon(Icons.close),
-                              onPressed: () => Navigator.pop(context),
-                            ),
-                          ],
+            // Botões de Ação (Foto e Chat)
+            Row(
+              children: [
+                Expanded(
+                  child: OutlinedButton.icon(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ChatPage(
+                            userName: coleta.nomeSolicitante,
+                            userId: 'user_id_placeholder',
+                          ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
+                      );
+                    },
+                    icon: const Icon(
+                      Icons.chat_bubble_outline,
+                      color: Color(0xFF3493F2),
+                    ),
+                    label: const Text(
+                      'Chat',
+                      style: TextStyle(fontSize: 16, color: Color(0xFF3493F2)),
+                    ),
+                    style: OutlinedButton.styleFrom(
+                      side: const BorderSide(color: Color(0xFF3493F2)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: OutlinedButton.icon(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) => Dialog(
                           child: Column(
+                            mainAxisSize: MainAxisSize.min,
                             children: [
-                              Container(
-                                width: double.infinity,
-                                height: 300,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey[200],
-                                  borderRadius: BorderRadius.circular(8),
-                                  border: Border.all(color: Colors.grey[400]!),
-                                ),
+                              AppBar(
+                                title: const Text('Foto do Material'),
+                                automaticallyImplyLeading: false,
+                                actions: [
+                                  IconButton(
+                                    icon: const Icon(Icons.close),
+                                    onPressed: () => Navigator.pop(context),
+                                  ),
+                                ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(16.0),
                                 child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Icon(
-                                      Icons.image,
-                                      size: 80,
-                                      color: Colors.grey[400],
+                                    Container(
+                                      width: double.infinity,
+                                      height: 300,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey[200],
+                                        borderRadius: BorderRadius.circular(8),
+                                        border: Border.all(
+                                          color: Colors.grey[400]!,
+                                        ),
+                                      ),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Icon(
+                                            Icons.image,
+                                            size: 80,
+                                            color: Colors.grey[400],
+                                          ),
+                                          const SizedBox(height: 16),
+                                          Text(
+                                            'Imagem do Material',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              color: Colors.grey[600],
+                                            ),
+                                          ),
+                                          const SizedBox(height: 8),
+                                          Text(
+                                            coleta.tipoMaterial,
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.grey[500],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                     const SizedBox(height: 16),
                                     Text(
-                                      'Imagem do Material',
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.grey[600],
-                                      ),
-                                    ),
-                                    const SizedBox(height: 8),
-                                    Text(
-                                      coleta.tipoMaterial,
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.grey[500],
-                                      ),
+                                      'Peso estimado: ${coleta.pesoEstimado}',
+                                      style: const TextStyle(fontSize: 14),
                                     ),
                                   ],
                                 ),
                               ),
-                              const SizedBox(height: 16),
-                              Text(
-                                'Peso estimado: ${coleta.pesoEstimado}',
-                                style: const TextStyle(fontSize: 14),
-                              ),
                             ],
                           ),
                         ),
-                      ],
+                      );
+                    },
+                    icon: const Icon(
+                      Icons.camera_alt_outlined,
+                      color: Colors.lightBlue,
+                    ),
+                    label: const Text(
+                      'Ver Foto',
+                      style: TextStyle(fontSize: 16, color: Colors.lightBlue),
+                    ),
+                    style: OutlinedButton.styleFrom(
+                      side: const BorderSide(color: Colors.lightBlue),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      padding: const EdgeInsets.symmetric(vertical: 16),
                     ),
                   ),
-                );
-              },
-              style: OutlinedButton.styleFrom(
-                side: const BorderSide(color: Colors.lightBlue),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
                 ),
-                padding: const EdgeInsets.symmetric(vertical: 16),
-              ),
-              child: const Text(
-                'Visualizar foto do lixo',
-                style: TextStyle(fontSize: 16, color: Colors.lightBlue),
-              ),
+              ],
             ),
 
             const SizedBox(height: 24),

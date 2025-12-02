@@ -38,6 +38,7 @@ class CollectionCardData {
 class CollectionDetailsCard extends StatelessWidget {
   final CollectionCardData data;
   final VoidCallback? onVisualizarFotoTap;
+  final VoidCallback? onChatTap;
   final VoidCallback? onAceitarColetaTap;
   final VoidCallback? onCancelarColetaTap;
   final VoidCallback? onFinalizarColetaTap;
@@ -46,6 +47,7 @@ class CollectionDetailsCard extends StatelessWidget {
     super.key,
     required this.data,
     this.onVisualizarFotoTap,
+    this.onChatTap,
     this.onAceitarColetaTap,
     this.onCancelarColetaTap,
     this.onFinalizarColetaTap,
@@ -59,7 +61,7 @@ class CollectionDetailsCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(5.0),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.15),
+            color: Colors.black.withValues(alpha: 0.15),
             spreadRadius: 1,
             blurRadius: 6,
             offset: const Offset(0, 3),
@@ -102,116 +104,143 @@ class CollectionDetailsCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      'Informações do Solicitante',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15,
+                    const Expanded(
+                      child: Text(
+                        'Informações do Solicitante',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                        ),
                       ),
                     ),
-                    if (onVisualizarFotoTap != null)
-                      OutlinedButton(
-                        onPressed: () {
-                          // Mostra diálogo com a imagem
-                          showDialog(
-                            context: context,
-                            builder: (context) => Dialog(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  AppBar(
-                                    title: const Text('Foto do Material'),
-                                    automaticallyImplyLeading: false,
-                                    actions: [
-                                      IconButton(
-                                        icon: const Icon(Icons.close),
-                                        onPressed: () => Navigator.pop(context),
-                                      ),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(16.0),
-                                    child: Column(
-                                      children: [
-                                        // Placeholder de imagem
-                                        Container(
-                                          width: double.infinity,
-                                          height: 300,
-                                          decoration: BoxDecoration(
-                                            color: Colors.grey[200],
-                                            borderRadius: BorderRadius.circular(
-                                              8,
-                                            ),
-                                            border: Border.all(
-                                              color: Colors.grey[400]!,
-                                            ),
-                                          ),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Icon(
-                                                Icons.image,
-                                                size: 80,
-                                                color: Colors.grey[400],
-                                              ),
-                                              const SizedBox(height: 16),
-                                              Text(
-                                                'Imagem do Material',
-                                                style: TextStyle(
-                                                  fontSize: 16,
-                                                  color: Colors.grey[600],
-                                                ),
-                                              ),
-                                              const SizedBox(height: 8),
-                                              Text(
-                                                data.tipoMaterial,
-                                                style: TextStyle(
-                                                  fontSize: 14,
-                                                  color: Colors.grey[500],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        const SizedBox(height: 16),
-                                        Text(
-                                          'Peso estimado: ${data.pesoEstimado}',
-                                          style: const TextStyle(fontSize: 14),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
+                    if (onChatTap != null)
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF3493F2).withValues(alpha: 0.15),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: IconButton(
+                            icon: const Icon(
+                              Icons.chat_bubble_outline,
+                              color: Color(0xFF3493F2),
                             ),
-                          );
-                        },
-                        style: OutlinedButton.styleFrom(
-                          foregroundColor: const Color(
-                            0xFF00C2FF,
-                          ), // Azul ciano do botão
-                          side: const BorderSide(color: Color(0xFF00C2FF)),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 0,
-                          ),
-                          minimumSize: const Size(0, 32),
-                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4.0),
-                          ),
-                        ),
-                        child: const Text(
-                          'Visualizar foto do material',
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.bold,
+                            onPressed: onChatTap,
+                            constraints: const BoxConstraints(
+                              minWidth: 40,
+                              minHeight: 40,
+                            ),
+                            padding: const EdgeInsets.all(8),
                           ),
                         ),
                       ),
                   ],
                 ),
+                const SizedBox(height: 12),
+                if (onVisualizarFotoTap != null)
+                  SizedBox(
+                    width: double.infinity,
+                    child: OutlinedButton(
+                      onPressed: () {
+                        // Mostra diálogo com a imagem
+                        showDialog(
+                          context: context,
+                          builder: (context) => Dialog(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                AppBar(
+                                  title: const Text('Foto do Material'),
+                                  automaticallyImplyLeading: false,
+                                  actions: [
+                                    IconButton(
+                                      icon: const Icon(Icons.close),
+                                      onPressed: () => Navigator.pop(context),
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Column(
+                                    children: [
+                                      // Placeholder de imagem
+                                      Container(
+                                        width: double.infinity,
+                                        height: 300,
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey[200],
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          border: Border.all(
+                                            color: Colors.grey[400]!,
+                                          ),
+                                        ),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Icon(
+                                              Icons.image,
+                                              size: 80,
+                                              color: Colors.grey[400],
+                                            ),
+                                            const SizedBox(height: 16),
+                                            Text(
+                                              'Imagem do Material',
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.grey[600],
+                                              ),
+                                            ),
+                                            const SizedBox(height: 8),
+                                            Text(
+                                              data.tipoMaterial,
+                                              style: TextStyle(
+                                                fontSize: 14,
+                                                color: Colors.grey[500],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(height: 16),
+                                      Text(
+                                        'Peso estimado: ${data.pesoEstimado}',
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: const Color(0xFF00C2FF),
+                        side: const BorderSide(
+                          color: Color(0xFF00C2FF),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 10,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(4.0),
+                        ),
+                      ),
+                      child: const Text(
+                        'Visualizar foto do material',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
                 const SizedBox(height: 8),
                 _buildDetailRow('Nome', data.nomeSolicitante),
                 _buildDetailRow('Endereço', data.endereco),

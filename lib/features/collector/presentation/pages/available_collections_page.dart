@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recicla_mais/features/collector/presentation/widgets/collection_card.dart';
+import 'package:recicla_mais/features/collector/presentation/pages/notifications_page.dart';
 
 class AvailableCollectionsPage extends StatefulWidget {
   final List<CollectionCardData> coletas;
@@ -60,12 +61,11 @@ class _AvailableCollectionsPageState extends State<AvailableCollectionsPage> {
               final bairro = bairros[index];
               return ListTile(
                 title: Text(bairro),
-                leading: Radio<String>(
-                  value: bairro,
-                  groupValue: _bairroSelecionado ?? 'Todos',
+                leading: Checkbox(
+                  value: _bairroSelecionado == bairro || (_bairroSelecionado == null && bairro == 'Todos'),
                   onChanged: (value) {
                     setState(() {
-                      _bairroSelecionado = value == 'Todos' ? null : value;
+                      _bairroSelecionado = bairro == 'Todos' ? null : bairro;
                     });
                     Navigator.pop(context);
                   },
@@ -103,7 +103,14 @@ class _AvailableCollectionsPageState extends State<AvailableCollectionsPage> {
         actions: [
           IconButton(
             icon: const Icon(Icons.notifications_none),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const NotificationsPage(),
+                ),
+              );
+            },
           ),
         ],
       ),
