@@ -3,11 +3,17 @@ import 'package:recicla_mais/features/collector/presentation/widgets/collection_
 import 'package:recicla_mais/features/collector/presentation/pages/collection_in_progress_page.dart';
 import 'package:recicla_mais/features/collector/presentation/pages/chat_page.dart';
 
+/// Uma página que exibe o histórico de coletas do coletor, organizadas
+/// em abas de "Pendentes" e "Concluídas".
 class CollectionHistoryPage extends StatelessWidget {
+  /// A lista de coletas aceitas pelo coletor (pendentes e concluídas).
   final List<CollectionCardData> coletas;
+  /// Callback acionado quando o coletor cancela uma coleta pendente.
   final Function(CollectionCardData) onCancelarColeta;
+  /// Callback acionado quando o coletor finaliza uma coleta pendente.
   final Function(CollectionCardData) onFinalizarColeta;
 
+  /// Cria uma instância de [CollectionHistoryPage].
   const CollectionHistoryPage({
     super.key,
     required this.coletas,
@@ -55,6 +61,11 @@ class CollectionHistoryPage extends StatelessWidget {
     );
   }
 
+  /// Constrói a lista de coletas para uma aba específica (Pendentes ou Concluídas).
+  ///
+  /// [lista] é a lista de coletas a ser exibida.
+  /// [isPending] determina se a lista é de coletas pendentes, ajustando a UI
+  /// e as ações disponíveis no card, como o chat e a navegação para a página de progresso.
   Widget _buildList(List<CollectionCardData> lista, {required bool isPending}) {
     if (lista.isEmpty) {
       return Center(

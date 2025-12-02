@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:recicla_mais/features/collector/domain/models/chat_message_model.dart';
 import 'package:intl/intl.dart';
 
+/// Um widget que exibe uma única mensagem de chat em formato de "bolha".
+///
+/// A bolha é alinhada à direita e estilizada com uma cor primária se a mensagem
+/// for do coletor, e alinhada à esquerda com uma cor neutra caso contrário.
 class MessageBubble extends StatelessWidget {
+  /// Os dados da mensagem a serem exibidos.
   final ChatMessage message;
 
+  /// Cria uma instância de [MessageBubble].
   const MessageBubble({super.key, required this.message});
 
   @override

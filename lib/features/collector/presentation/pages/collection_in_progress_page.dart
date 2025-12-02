@@ -2,9 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:recicla_mais/features/collector/presentation/widgets/collection_card.dart';
 import 'package:recicla_mais/features/collector/presentation/pages/chat_page.dart';
 
+/// Uma página que exibe os detalhes de uma coleta que está em andamento.
+///
+/// Fornece ao coletor as informações necessárias para realizar a coleta,
+/// um placeholder para o mapa, e ações como iniciar um chat, visualizar a foto
+/// do material, finalizar ou cancelar a coleta.
 class CollectionInProgressPage extends StatelessWidget {
+  /// Os dados da coleta em andamento.
   final CollectionCardData coleta;
+  /// Callback acionado quando o coletor toca no botão "Finalizar coleta".
   final VoidCallback onFinalizar;
+  /// Callback acionado quando o coletor toca no botão "Cancelar coleta".
   final VoidCallback onCancelar;
 
   const CollectionInProgressPage({
@@ -247,6 +255,7 @@ class CollectionInProgressPage extends StatelessWidget {
     );
   }
 
+  /// Constrói uma linha de informação com um rótulo e um valor.
   Widget _buildInfoRow(String label, String value, {bool isBlue = false}) {
     return RichText(
       text: TextSpan(

@@ -2,10 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:recicla_mais/features/collector/presentation/widgets/collection_card.dart';
 import 'package:recicla_mais/features/collector/presentation/pages/notifications_page.dart';
 
+/// Uma página que exibe uma lista de coletas disponíveis para o coletor.
+///
+/// Permite que o usuário filtre as coletas por bairro, busque por nome do solicitante
+/// e aceite uma coleta disponível.
 class AvailableCollectionsPage extends StatefulWidget {
+  /// A lista de coletas disponíveis a serem exibidas.
   final List<CollectionCardData> coletas;
+  /// Callback acionado quando o coletor aceita uma coleta.
   final Function(CollectionCardData) onAceitarColeta;
 
+  /// Cria uma instância de [AvailableCollectionsPage].
   const AvailableCollectionsPage({
     super.key,
     required this.coletas,
@@ -17,10 +24,14 @@ class AvailableCollectionsPage extends StatefulWidget {
       _AvailableCollectionsPageState();
 }
 
+/// Gerencia o estado da página, incluindo a lógica de busca e filtro.
 class _AvailableCollectionsPageState extends State<AvailableCollectionsPage> {
+  /// O bairro atualmente selecionado para o filtro. Nulo se nenhum filtro de bairro estiver ativo.
   String? _bairroSelecionado;
+  /// O termo de busca atual inserido pelo usuário no campo de texto.
   String _searchQuery = '';
 
+  /// Retorna a lista de coletas após aplicar os filtros de bairro e busca.
   List<CollectionCardData> get _coletasFiltradas {
     return widget.coletas.where((coleta) {
       final matchBairro =
@@ -36,6 +47,7 @@ class _AvailableCollectionsPageState extends State<AvailableCollectionsPage> {
     }).toList();
   }
 
+  /// Exibe um diálogo que permite ao usuário filtrar as coletas por bairro.
   void _showFilterDialog() {
     // Lista de bairros únicos
     final bairros = [

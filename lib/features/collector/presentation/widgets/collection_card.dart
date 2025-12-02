@@ -1,23 +1,48 @@
 import 'package:flutter/material.dart';
 
-// --- Modelo de Dados ---
-// Define a estrutura dos dados para uma coleta.
-enum CollectionStatus { available, pending, completed }
+/// Define os possíveis status de uma solicitação de coleta.
+enum CollectionStatus {
+  /// A coleta está disponível para ser aceita por um coletor.
+  available,
 
+  /// A coleta foi aceita e está aguardando a finalização.
+  pending,
+
+  /// A coleta foi concluída com sucesso.
+  completed,
+}
+
+/// Representa o modelo de dados para uma única solicitação de coleta.
+///
+/// Esta classe imutável contém todas as informações necessárias para exibir
+/// e gerenciar uma coleta, desde os detalhes do solicitante até o status atual.
 class CollectionCardData {
+  /// O intervalo de tempo estimado para a realização da coleta.
   final String tempoColeta;
+  /// A distância aproximada até o local da coleta.
   final String distanciaKm;
+  /// O nome do usuário que solicitou a coleta.
   final String nomeSolicitante;
+  /// O endereço completo para a coleta.
   final String endereco;
+  /// Um ponto de referência para ajudar a localizar o endereço.
   final String referencia;
+  /// A categoria do material a ser coletado (ex: Plástico, Vidro).
   final String tipoMaterial;
+  /// O peso aproximado do material.
   final String pesoEstimado;
+  /// Informações adicionais sobre o material.
   final String detalhesAdicionais;
+  /// Observações gerais do solicitante para o coletor.
   final String observacoes;
+  /// O status atual da coleta (disponível, pendente, concluída).
   final CollectionStatus status;
+  /// Um código único para identificar a coleta.
   final String collectionCode;
+  /// O bairro onde a coleta será realizada, usado para filtros.
   final String bairro;
 
+  /// Cria uma instância de [CollectionCardData].
   const CollectionCardData({
     required this.tempoColeta,
     required this.distanciaKm,
@@ -33,16 +58,26 @@ class CollectionCardData {
     this.bairro = '',
   });
 }
-// -----------------------
 
+/// Um widget de card reutilizável que exibe os detalhes de uma [CollectionCardData].
+///
+/// Este card é altamente configurável através de callbacks para diferentes ações,
+/// como aceitar, cancelar, finalizar, visualizar foto ou iniciar um chat.
 class CollectionDetailsCard extends StatelessWidget {
+  /// Os dados da coleta a serem exibidos no card.
   final CollectionCardData data;
+  /// Callback acionado ao tocar no botão "Visualizar foto do material".
   final VoidCallback? onVisualizarFotoTap;
+  /// Callback acionado ao tocar no ícone de chat.
   final VoidCallback? onChatTap;
+  /// Callback acionado ao tocar no botão "Aceitar Solicitação".
   final VoidCallback? onAceitarColetaTap;
+  /// Callback acionado ao tocar no botão "Cancelar".
   final VoidCallback? onCancelarColetaTap;
+  /// Callback acionado ao tocar no botão "Finalizar".
   final VoidCallback? onFinalizarColetaTap;
 
+  /// Cria uma instância de [CollectionDetailsCard].
   const CollectionDetailsCard({
     super.key,
     required this.data,
@@ -349,6 +384,7 @@ class CollectionDetailsCard extends StatelessWidget {
     );
   }
 
+  /// Constrói uma linha de detalhe com um rótulo em negrito e um valor.
   Widget _buildDetailRow(String label, String value) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 4.0),

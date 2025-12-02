@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+/// Uma página que permite ao usuário configurar as opções de acessibilidade do aplicativo.
+///
+/// Atualmente, permite ajustar o tamanho da fonte, ativar o modo de alto contraste
+/// e reduzir animações.
 class AccessibilitySettingsPage extends StatefulWidget {
   const AccessibilitySettingsPage({super.key});
 
@@ -8,9 +12,13 @@ class AccessibilitySettingsPage extends StatefulWidget {
       _AccessibilitySettingsPageState();
 }
 
+/// Gerencia o estado das configurações de acessibilidade.
 class _AccessibilitySettingsPageState extends State<AccessibilitySettingsPage> {
+  /// O tamanho da fonte preferido pelo usuário, em pixels lógicos.
   double _fontSize = 16.0;
+  /// Controla se o modo de alto contraste está ativado.
   bool _highContrast = false;
+  /// Controla se as animações devem ser reduzidas para minimizar efeitos visuais.
   bool _reduceAnimations = false;
 
   @override

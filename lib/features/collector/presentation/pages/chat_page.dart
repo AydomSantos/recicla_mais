@@ -2,8 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:recicla_mais/features/collector/domain/models/chat_message_model.dart';
 import 'package:recicla_mais/features/collector/presentation/widgets/message_bubble.dart';
 
+/// Uma página que exibe a interface de chat para uma conversa específica.
+///
+/// Recebe o nome e o ID do usuário com quem o coletor está conversando
+/// para exibir no `AppBar` e para futuras lógicas de backend.
 class ChatPage extends StatefulWidget {
+  /// O nome do usuário para ser exibido no `AppBar`.
   final String userName;
+  /// O identificador único do usuário.
   final String userId;
 
   const ChatPage({super.key, required this.userName, required this.userId});
@@ -12,9 +18,14 @@ class ChatPage extends StatefulWidget {
   State<ChatPage> createState() => _ChatPageState();
 }
 
+/// Gerencia o estado da página de chat, incluindo a lista de mensagens,
+/// os controladores de texto e de rolagem.
 class _ChatPageState extends State<ChatPage> {
+  /// Controlador para o campo de entrada de texto da mensagem.
   final TextEditingController _messageController = TextEditingController();
+  /// Controlador para a `ListView` que exibe as mensagens, permitindo rolar a tela.
   final ScrollController _scrollController = ScrollController();
+  /// A lista de mensagens exibidas na tela.
   final List<ChatMessage> _messages = [];
 
   @override
@@ -30,6 +41,11 @@ class _ChatPageState extends State<ChatPage> {
     super.dispose();
   }
 
+  /// Carrega as mensagens iniciais do chat.
+  ///
+  /// Atualmente, utiliza dados mockados para fins de demonstração.
+  /// Em uma aplicação real, aqui seria feita a chamada para buscar o histórico
+  /// de mensagens de um serviço de backend ou banco de dados.
   void _loadMessages() {
     final now = DateTime.now();
     _messages.addAll([
@@ -68,6 +84,10 @@ class _ChatPageState extends State<ChatPage> {
     });
   }
 
+  /// Envia uma nova mensagem.
+  ///
+  /// Adiciona a mensagem à lista local, limpa o campo de texto e rola
+  /// a lista para o final para exibir a nova mensagem.
   void _sendMessage() {
     if (_messageController.text.trim().isEmpty) return;
 
