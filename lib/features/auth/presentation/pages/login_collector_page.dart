@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recicla_mais/features/collector/presentation/pages/collector_home_page.dart';
+import 'package:recicla_mais/features/auth/presentation/pages/register_collector_page.dart';
 
 // pagina de login do usuario coletor
 class LoginCollectorPage extends StatefulWidget {
@@ -128,7 +129,11 @@ class _LoginCollectorPageState extends State<LoginCollectorPage> {
                   const Text("Ainda não tem conta?"),
                   TextButton(
                     onPressed: () {
-                      // Lógica para navegar para a tela de registro
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const RegisterCollectorPage()),
+                      );
                     },
                     child: const Text(
                       'Criar conta',

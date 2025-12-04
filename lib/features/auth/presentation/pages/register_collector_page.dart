@@ -1,34 +1,34 @@
 import 'package:flutter/material.dart';
 
-class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+class RegisterCollectorPage extends StatefulWidget {
+  const RegisterCollectorPage({super.key});
 
   @override
-  // Mantive o nome da sua classe State, mas o nome ideal seria _RegisterPageState
-  State<RegisterPage> createState() => _CadastroScreenState(); 
+  State<RegisterCollectorPage> createState() => _RegisterCollectorPageState();
 }
 
-// Sua classe State com o novo código de layout
-class _CadastroScreenState extends State<RegisterPage> {
+class _RegisterCollectorPageState extends State<RegisterCollectorPage> {
   // Variáveis para os estados dos campos
   String? _selectedGender;
   bool _agreedToTerms = false;
-  final List<String> _genders = ['Masculino', 'Feminino', 'Não Binário', 'Prefiro não informar'];
+  final List<String> _genders = [
+    'Masculino',
+    'Feminino',
+    'Não Binário',
+    'Prefiro não informar'
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // Remove a sombra e a cor de fundo para ficar mais clean, como na imagem
+        // Remove a sombra e a cor de fundo para ficar mais clean
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        // O título original não é mais necessário, mas você pode adicioná-lo
-        // se preferir.
-        // title: const Text('Cadastro de Usuário'), 
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24.0),
@@ -37,26 +37,39 @@ class _CadastroScreenState extends State<RegisterPage> {
           children: <Widget>[
             // Título
             const Text(
-              'Criar Conta',
+              'Cadastro Profissional',
+              textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 28,
+                fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
             ),
             const SizedBox(height: 8),
             const Text(
-              'Cadastre-se para começar a usar o app',
+              'Complete seus dados profissionais para atuar como coletor',
+              textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 14,
                 color: Colors.grey,
               ),
             ),
             const SizedBox(height: 32),
 
-            // Campos do Formulário
+            // --- Campos do Formulário ---
+
             _buildTextField(label: 'Nome completo', hintText: 'Seu Nome Completo'),
             const SizedBox(height: 16),
-            _buildTextField(label: 'Email', hintText: 'Digite o seu Email', keyboardType: TextInputType.emailAddress),
+
+            _buildTextField(
+                label: 'Email',
+                hintText: 'Digite o seu Email',
+                keyboardType: TextInputType.emailAddress),
+            const SizedBox(height: 16),
+
+            _buildTextField(
+                label: 'Telefone',
+                hintText: 'Digite o seu Número',
+                keyboardType: TextInputType.phone),
             const SizedBox(height: 16),
 
             // Data de Nascimento
@@ -67,18 +80,25 @@ class _CadastroScreenState extends State<RegisterPage> {
             _buildDropdownField(label: 'Gênero'),
             const SizedBox(height: 16),
 
-            // Cidade - Estado
-            _buildTextField(label: 'Cidade - Estado', hintText: 'Cidade - UF'),
+            // Endereço
+            _buildTextField(
+                label: 'Endereço', hintText: 'Rua, Número, Complemento'),
             const SizedBox(height: 16),
 
-            // Endereço
-            _buildTextField(label: 'Endereço, Nº', hintText: 'Rua, Número, Complemento'),
+            // Cidade - UF
+            _buildTextField(label: 'Cidade - UF', hintText: 'Cidade - UF'),
             const SizedBox(height: 16),
 
             // Senha
-            _buildTextField(label: 'Senha', hintText: 'Crie uma senha', obscureText: true),
+            _buildTextField(
+                label: 'Senha', hintText: 'Crie uma senha', obscureText: true),
             const SizedBox(height: 16),
-            _buildTextField(label: 'Confirmar senha', hintText: 'Digite a senha novamente', obscureText: true),
+
+            // Confirmar Senha
+            _buildTextField(
+                label: 'Confirmar Senha',
+                hintText: 'Digite a senha novamente',
+                obscureText: true),
             const SizedBox(height: 24),
 
             // Botão Adicionar uma foto
@@ -93,7 +113,15 @@ class _CadastroScreenState extends State<RegisterPage> {
                   borderRadius: BorderRadius.circular(8.0),
                 ),
               ),
-              child: const Text('Adicionar uma foto', style: TextStyle(fontSize: 16)),
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.camera_alt_outlined, color: Colors.black),
+                  SizedBox(width: 8),
+                  Text('Adicionar uma foto',
+                      style: TextStyle(fontSize: 16, color: Colors.black)),
+                ],
+              ),
             ),
             const SizedBox(height: 24),
 
@@ -136,7 +164,8 @@ class _CadastroScreenState extends State<RegisterPage> {
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           TextSpan(
-                            text: ', estou ciente de que meus dados serão utilizados conforme a legislação aplicável.',
+                            text:
+                                ', estou ciente de que meus dados serão utilizados conforme a legislação aplicável.',
                           ),
                         ],
                       ),
@@ -149,10 +178,14 @@ class _CadastroScreenState extends State<RegisterPage> {
 
             // Botão Criar Conta
             ElevatedButton(
-              onPressed: _agreedToTerms ? () {
-                // Lógica para criar conta
-                print('Conta Criada!');
-              } : null, // Desabilita o botão se não concordar com os termos
+              onPressed: _agreedToTerms
+                  ? () {
+                      // Lógica para criar conta
+                      print('Conta Profissional Criada!');
+                      // Após criar a conta, volta para a tela de login do coletor
+                      Navigator.of(context).pop();
+                    }
+                  : null, // Desabilita o botão se não concordar com os termos
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size.fromHeight(50),
                 backgroundColor: Colors.blue,
@@ -160,34 +193,31 @@ class _CadastroScreenState extends State<RegisterPage> {
                   borderRadius: BorderRadius.circular(8.0),
                 ),
               ),
-              child: const Text('Criar Conta', style: TextStyle(fontSize: 18, color: Colors.white)),
+              child: const Text('Criar Conta',
+                  style: TextStyle(fontSize: 18, color: Colors.white)),
             ),
             const SizedBox(height: 24),
 
-            // Link Já tem uma conta?
+            // Link Já é cadastrado? Fazer Login
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text('Já tem uma conta?', style: TextStyle(fontSize: 16)),
-              ],
-            ),
-            const SizedBox(height: 8),
-
-            // Botão Entrar
-            OutlinedButton(
-              onPressed: () {
-                // Volta para a tela de login anterior
-                Navigator.of(context).pop();
-              },
-              style: OutlinedButton.styleFrom(
-                minimumSize: const Size.fromHeight(50),
-                side: const BorderSide(color: Colors.blue, width: 1.0),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
+                const Text('Já é cadastrado?', style: TextStyle(fontSize: 16)),
+                TextButton(
+                  onPressed: () {
+                    // Volta para a tela de Login do Coletor
+                    Navigator.of(context).pop();
+                  },
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.only(left: 4),
+                  ),
+                  child: const Text('Fazer Login',
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue)),
                 ),
-              ),
-              // O texto deve ser 'Entrar', não 'Criar Conta'
-              child: const Text('Entrar', style: TextStyle(fontSize: 18, color: Colors.blue)), 
+              ],
             ),
           ],
         ),
@@ -197,7 +227,11 @@ class _CadastroScreenState extends State<RegisterPage> {
 
   // --- Funções Auxiliares (Métodos) para Construção dos Widgets ---
 
-  Widget _buildTextField({required String label, required String hintText, TextInputType keyboardType = TextInputType.text, bool obscureText = false}) {
+  Widget _buildTextField(
+      {required String label,
+      required String hintText,
+      TextInputType keyboardType = TextInputType.text,
+      bool obscureText = false}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -206,11 +240,14 @@ class _CadastroScreenState extends State<RegisterPage> {
           style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
         ),
         const SizedBox(height: 8),
-        TextField(
+        TextFormField(
           keyboardType: keyboardType,
           obscureText: obscureText,
           decoration: InputDecoration(
             hintText: hintText,
+            border: const OutlineInputBorder(),
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 16.0, horizontal: 12.0),
           ),
         ),
       ],
@@ -226,7 +263,7 @@ class _CadastroScreenState extends State<RegisterPage> {
           style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
         ),
         const SizedBox(height: 8),
-        TextField(
+        TextFormField(
           readOnly: true, // Para simular que abre um seletor de data
           decoration: InputDecoration(
             hintText: hintText,
@@ -237,6 +274,9 @@ class _CadastroScreenState extends State<RegisterPage> {
                 print('Abrir DatePicker');
               },
             ),
+            border: const OutlineInputBorder(),
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 16.0, horizontal: 12.0),
           ),
         ),
       ],
@@ -254,10 +294,10 @@ class _CadastroScreenState extends State<RegisterPage> {
         const SizedBox(height: 8),
         DropdownButtonFormField<String>(
           value: _selectedGender,
-          // A decoração aqui herda o estilo global do MaterialApp
           decoration: const InputDecoration(
             hintText: 'Selecione',
             contentPadding: EdgeInsets.symmetric(horizontal: 12.0),
+            border: OutlineInputBorder(),
           ),
           isExpanded: true,
           icon: const Icon(Icons.arrow_drop_down),
