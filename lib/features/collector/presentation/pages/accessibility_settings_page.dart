@@ -26,11 +26,12 @@ class _AccessibilitySettingsPageState extends State<AccessibilitySettingsPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Acessibilidade'),
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color(0xFF3493F2),
         foregroundColor: Colors.white,
       ),
       body: ListView(
         children: [
+          const SizedBox(height: 8),
           ListTile(
             title: const Text('Tamanho da Fonte'),
             subtitle: Text('${_fontSize.toInt()}px'),

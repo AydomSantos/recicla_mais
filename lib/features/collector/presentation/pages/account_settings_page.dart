@@ -8,10 +8,11 @@ class AccountSettingsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Conta'),
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color(0xFF3493F2),
         foregroundColor: Colors.white,
       ),
       body: ListView(
+        padding: const EdgeInsets.symmetric(vertical: 8),
         children: [
           ListTile(
             leading: const Icon(Icons.edit),

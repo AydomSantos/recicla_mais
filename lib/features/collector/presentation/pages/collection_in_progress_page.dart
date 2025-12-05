@@ -45,7 +45,6 @@ class CollectionInProgressPage extends StatelessWidget {
                 style: const TextStyle(fontSize: 22, color: Colors.black87),
               ),
             ),
-            const SizedBox(height: 24),
             SizedBox(height: screenHeight * 0.03),
 
             // Informações
@@ -59,7 +58,6 @@ class CollectionInProgressPage extends StatelessWidget {
               isBlue: true,
             ),
 
-            const SizedBox(height: 24),
             SizedBox(height: screenHeight * 0.03),
 
             // Botões de Ação (Foto e Chat)
@@ -190,12 +188,10 @@ class CollectionInProgressPage extends StatelessWidget {
               ],
             ),
 
-            const SizedBox(height: 24),
             SizedBox(height: screenHeight * 0.03),
 
             // Placeholder do Mapa
             Container(
-              height: 250,
               height: screenHeight * 0.3,
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.lightBlue),
@@ -212,7 +208,6 @@ class CollectionInProgressPage extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 24),
             SizedBox(height: screenHeight * 0.03),
 
             // Botão Finalizar

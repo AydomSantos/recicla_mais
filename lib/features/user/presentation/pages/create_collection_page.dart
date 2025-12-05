@@ -40,6 +40,8 @@ class _CreateCollectionPageState extends State<CreateCollectionPage> {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF3493F2),
@@ -79,7 +81,7 @@ class _CreateCollectionPageState extends State<CreateCollectionPage> {
                   ),
                 ),
               ),
-              const SizedBox(height: 24),
+              SizedBox(height: screenHeight * 0.03),
 
               // Name
               _buildLabel('Nome:'),
@@ -87,7 +89,7 @@ class _CreateCollectionPageState extends State<CreateCollectionPage> {
                 controller: _nameController,
                 hintText: 'Digite seu nome',
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: screenHeight * 0.02),
 
               // Address and Number
               Row(
@@ -118,7 +120,7 @@ class _CreateCollectionPageState extends State<CreateCollectionPage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: screenHeight * 0.02),
 
               // Neighborhood and CEP
               Row(
@@ -144,7 +146,7 @@ class _CreateCollectionPageState extends State<CreateCollectionPage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: screenHeight * 0.02),
 
               // City and State
               Row(
@@ -170,7 +172,7 @@ class _CreateCollectionPageState extends State<CreateCollectionPage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: screenHeight * 0.02),
 
               // Description
               _buildLabel('Descrição:'),
@@ -178,7 +180,7 @@ class _CreateCollectionPageState extends State<CreateCollectionPage> {
                 controller: _descriptionController,
                 hintText: 'Opcional*',
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: screenHeight * 0.02),
 
               // Time
               _buildLabel('Horário:'),
@@ -199,7 +201,7 @@ class _CreateCollectionPageState extends State<CreateCollectionPage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 32),
+              SizedBox(height: screenHeight * 0.04),
 
               // Add Photo Button
               const Text(
@@ -207,7 +209,7 @@ class _CreateCollectionPageState extends State<CreateCollectionPage> {
                 textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.grey, fontSize: 14),
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: screenHeight * 0.015),
               OutlinedButton(
                 onPressed: () {
                   // TODO: Implement photo picker
@@ -217,14 +219,14 @@ class _CreateCollectionPageState extends State<CreateCollectionPage> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
                 ),
                 child: const Text(
                   'Adicionar foto do material',
                   style: TextStyle(color: Color(0xFF00C2FF), fontSize: 16),
                 ),
               ),
-              const SizedBox(height: 24),
+              SizedBox(height: screenHeight * 0.03),
 
               // Create Request Button
               ElevatedButton(
@@ -261,7 +263,7 @@ class _CreateCollectionPageState extends State<CreateCollectionPage> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  padding: EdgeInsets.symmetric(vertical: screenHeight * 0.02),
                 ),
                 child: const Text(
                   'Criar solicitação',
@@ -272,7 +274,7 @@ class _CreateCollectionPageState extends State<CreateCollectionPage> {
                   ),
                 ),
               ),
-              const SizedBox(height: 24),
+              SizedBox(height: screenHeight * 0.03),
             ],
           ),
         ),

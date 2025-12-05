@@ -35,7 +35,7 @@ class CollectionHistoryPage extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.blue,
+          backgroundColor: const Color(0xFF3493F2),
           foregroundColor: Colors.white,
           title: const Text('Histórico de Coletas'),
           automaticallyImplyLeading: false,
