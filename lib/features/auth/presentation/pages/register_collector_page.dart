@@ -108,18 +108,18 @@ class _RegisterCollectorPageState extends State<RegisterCollectorPage> {
               },
               style: OutlinedButton.styleFrom(
                 minimumSize: const Size.fromHeight(60),
-                side: const BorderSide(color: Color.fromARGB(255, 7, 85, 175), width: 0.5),
+                side: const BorderSide(color: Color(0xFF3493F2), width: 1.0),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
               ),
               child: const Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.camera_alt_outlined, color: Colors.black),
-                  SizedBox(width: 8),
-                  Text('Adicionar uma foto',
-                      style: TextStyle(fontSize: 16, color: Colors.black)),
+                children: [ 
+                  Icon(Icons.camera_alt_outlined, color: Color(0xFF3493F2)),
+                  SizedBox(width: 8), 
+                  Text('Adicionar uma foto', 
+                      style: TextStyle(fontSize: 16, color: Color(0xFF3493F2))),
                 ],
               ),
             ),
@@ -188,13 +188,13 @@ class _RegisterCollectorPageState extends State<RegisterCollectorPage> {
                   : null, // Desabilita o botão se não concordar com os termos
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size.fromHeight(50),
-                backgroundColor: Colors.blue,
+                backgroundColor: const Color(0xFF3493F2),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
               ),
               child: const Text('Criar Conta',
-                  style: TextStyle(fontSize: 18, color: Colors.white)),
+                  style: TextStyle(fontSize: 18, color: Color(0xFF3493F2))),
             ),
             const SizedBox(height: 24),
 
@@ -215,7 +215,7 @@ class _RegisterCollectorPageState extends State<RegisterCollectorPage> {
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
-                          color: Colors.blue)),
+                          color: Color(0xFF3493F2))),
                 ),
               ],
             ),

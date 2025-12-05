@@ -155,12 +155,12 @@ class _CadastroScreenState extends State<RegisterPage> {
               } : null, // Desabilita o botão se não concordar com os termos
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size.fromHeight(50),
-                backgroundColor: Colors.blue,
+                backgroundColor: const Color(0xFF3493F2),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
               ),
-              child: const Text('Criar Conta', style: TextStyle(fontSize: 18, color: Colors.white)),
+              child: const Text('Criar Conta', style: TextStyle(fontSize: 18, color: Color(0xFF3493F2))),
             ),
             const SizedBox(height: 24),
 
@@ -181,13 +181,13 @@ class _CadastroScreenState extends State<RegisterPage> {
               },
               style: OutlinedButton.styleFrom(
                 minimumSize: const Size.fromHeight(50),
-                side: const BorderSide(color: Colors.blue, width: 1.0),
+                side: const BorderSide(color: Color(0xFF3493F2), width: 1.0),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
               ),
               // O texto deve ser 'Entrar', não 'Criar Conta'
-              child: const Text('Entrar', style: TextStyle(fontSize: 18, color: Colors.blue)), 
+              child: const Text('Entrar', style: TextStyle(fontSize: 18, color: Color(0xFF3493F2))), 
             ),
           ],
         ),
