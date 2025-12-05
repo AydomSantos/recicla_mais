@@ -154,13 +154,14 @@ class _CadastroScreenState extends State<RegisterPage> {
                 print('Conta Criada!');
               } : null, // Desabilita o botão se não concordar com os termos
               style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white, backgroundColor: const Color(0xFF3493F2),
                 minimumSize: const Size.fromHeight(50),
-                backgroundColor: const Color(0xFF3493F2),
+               
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
               ),
-              child: const Text('Criar Conta', style: TextStyle(fontSize: 18, color: Color(0xFF3493F2))),
+              child: const Text('Criar Conta', style: TextStyle(fontSize: 18, color: Colors.white)),
             ),
             const SizedBox(height: 24),
 

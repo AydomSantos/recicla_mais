@@ -52,8 +52,8 @@ class _LoginPageState extends State<LoginPage> {
                 ClipOval(
                   child: Image.asset(
                     'assets/imagens/logo.png',
-                    height: 250,
-                    width: 250, // Controla a altura da imagem
+                    height: 350,
+                    width: 350, // Controla a altura da imagem
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -121,7 +121,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: ElevatedButton(
                     onPressed: _login,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
+                      backgroundColor: const Color(0xFF3493F2),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5.0),
                       ),

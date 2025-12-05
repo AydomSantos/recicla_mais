@@ -194,7 +194,7 @@ class _RegisterCollectorPageState extends State<RegisterCollectorPage> {
                 ),
               ),
               child: const Text('Criar Conta',
-                  style: TextStyle(fontSize: 18, color: Color(0xFF3493F2))),
+                  style: TextStyle(fontSize: 18, color: Colors.white)),
             ),
             const SizedBox(height: 24),
 
