@@ -20,6 +20,8 @@ class _RegisterCollectorPageState extends State<RegisterCollectorPage> {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         // Remove a sombra e a cor de fundo para ficar mais clean
@@ -53,53 +55,53 @@ class _RegisterCollectorPageState extends State<RegisterCollectorPage> {
                 color: Colors.grey,
               ),
             ),
-            const SizedBox(height: 32),
+            SizedBox(height: screenHeight * 0.04),
 
             // --- Campos do Formulário ---
 
             _buildTextField(label: 'Nome completo', hintText: 'Seu Nome Completo'),
-            const SizedBox(height: 16),
+            SizedBox(height: screenHeight * 0.02),
 
             _buildTextField(
                 label: 'Email',
                 hintText: 'Digite o seu Email',
                 keyboardType: TextInputType.emailAddress),
-            const SizedBox(height: 16),
+            SizedBox(height: screenHeight * 0.02),
 
             _buildTextField(
                 label: 'Telefone',
                 hintText: 'Digite o seu Número',
                 keyboardType: TextInputType.phone),
-            const SizedBox(height: 16),
+            SizedBox(height: screenHeight * 0.02),
 
             // Data de Nascimento
             _buildDateField(label: 'Data de nascimento', hintText: 'dd/mm/aaaa'),
-            const SizedBox(height: 16),
+            SizedBox(height: screenHeight * 0.02),
 
             // Gênero (Dropdown)
             _buildDropdownField(label: 'Gênero'),
-            const SizedBox(height: 16),
+            SizedBox(height: screenHeight * 0.02),
 
             // Endereço
             _buildTextField(
                 label: 'Endereço', hintText: 'Rua, Número, Complemento'),
-            const SizedBox(height: 16),
+            SizedBox(height: screenHeight * 0.02),
 
             // Cidade - UF
             _buildTextField(label: 'Cidade - UF', hintText: 'Cidade - UF'),
-            const SizedBox(height: 16),
+            SizedBox(height: screenHeight * 0.02),
 
             // Senha
             _buildTextField(
                 label: 'Senha', hintText: 'Crie uma senha', obscureText: true),
-            const SizedBox(height: 16),
+            SizedBox(height: screenHeight * 0.02),
 
             // Confirmar Senha
             _buildTextField(
                 label: 'Confirmar Senha',
                 hintText: 'Digite a senha novamente',
                 obscureText: true),
-            const SizedBox(height: 24),
+            SizedBox(height: screenHeight * 0.03),
 
             // Botão Adicionar uma foto
             OutlinedButton(
@@ -107,7 +109,7 @@ class _RegisterCollectorPageState extends State<RegisterCollectorPage> {
                 // Lógica para adicionar foto
               },
               style: OutlinedButton.styleFrom(
-                minimumSize: const Size.fromHeight(60),
+                minimumSize: Size.fromHeight(screenHeight * 0.07),
                 side: const BorderSide(color: Color(0xFF3493F2), width: 1.0),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
@@ -123,7 +125,7 @@ class _RegisterCollectorPageState extends State<RegisterCollectorPage> {
                 ],
               ),
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: screenHeight * 0.03),
 
             // Checkbox e Termos de Uso
             Row(
@@ -174,7 +176,7 @@ class _RegisterCollectorPageState extends State<RegisterCollectorPage> {
                 ),
               ],
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: screenHeight * 0.03),
 
             // Botão Criar Conta
             ElevatedButton(
@@ -187,7 +189,7 @@ class _RegisterCollectorPageState extends State<RegisterCollectorPage> {
                     }
                   : null, // Desabilita o botão se não concordar com os termos
               style: ElevatedButton.styleFrom(
-                minimumSize: const Size.fromHeight(50),
+                minimumSize: Size.fromHeight(screenHeight * 0.06),
                 backgroundColor: const Color(0xFF3493F2),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
@@ -196,7 +198,7 @@ class _RegisterCollectorPageState extends State<RegisterCollectorPage> {
               child: const Text('Criar Conta',
                   style: TextStyle(fontSize: 18, color: Colors.white)),
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: screenHeight * 0.03),
 
             // Link Já é cadastrado? Fazer Login
             Row(

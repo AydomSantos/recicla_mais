@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'login_collector_page.dart';
+import 'forgot_password_page.dart';
 import 'register_page.dart';
 
 // pagina de login do usuario comum
@@ -37,6 +38,9 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       drawerEnableOpenDragGesture: false,
       backgroundColor: Colors.white,
@@ -48,16 +52,16 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const SizedBox(height: 80.0),
+                SizedBox(height: screenHeight * 0.08),
                 ClipOval(
                   child: Image.asset(
                     'assets/imagens/logo.png',
-                    height: 350,
-                    width: 350, // Controla a altura da imagem
+                    height: screenWidth * 0.7,
+                    width: screenWidth * 0.7,
                     fit: BoxFit.cover,
                   ),
                 ),
-                const SizedBox(height: 48.0),
+                SizedBox(height: screenHeight * 0.05),
                 const Text('Email', style: TextStyle(fontSize: 16)),
                 const SizedBox(height: 8.0),
                 TextFormField(
@@ -106,11 +110,15 @@ class _LoginPageState extends State<LoginPage> {
                   alignment: Alignment.centerRight,
                   child: TextButton(
                     onPressed: () {
-                      // Lógica para recuperar a senha
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ForgotPasswordPage()),
+                      );
                     },
                     child: const Text(
                       'Esqueceu a senha ?',
-                      style: TextStyle(color: Colors.blue),
+                      style: TextStyle(color: Color(0xFF3493F2)),
                     ),
                   ),
                 ),

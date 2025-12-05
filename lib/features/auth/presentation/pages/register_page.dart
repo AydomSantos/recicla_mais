@@ -17,6 +17,8 @@ class _CadastroScreenState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         // Remove a sombra e a cor de fundo para ficar mais clean, como na imagem
@@ -51,35 +53,35 @@ class _CadastroScreenState extends State<RegisterPage> {
                 color: Colors.grey,
               ),
             ),
-            const SizedBox(height: 32),
+            SizedBox(height: screenHeight * 0.04),
 
             // Campos do Formulário
             _buildTextField(label: 'Nome completo', hintText: 'Seu Nome Completo'),
-            const SizedBox(height: 16),
+            SizedBox(height: screenHeight * 0.02),
             _buildTextField(label: 'Email', hintText: 'Digite o seu Email', keyboardType: TextInputType.emailAddress),
-            const SizedBox(height: 16),
+            SizedBox(height: screenHeight * 0.02),
 
             // Data de Nascimento
             _buildDateField(label: 'Data de nascimento', hintText: 'dd/mm/aaaa'),
-            const SizedBox(height: 16),
+            SizedBox(height: screenHeight * 0.02),
 
             // Gênero (Dropdown)
             _buildDropdownField(label: 'Gênero'),
-            const SizedBox(height: 16),
+            SizedBox(height: screenHeight * 0.02),
 
             // Cidade - Estado
             _buildTextField(label: 'Cidade - Estado', hintText: 'Cidade - UF'),
-            const SizedBox(height: 16),
+            SizedBox(height: screenHeight * 0.02),
 
             // Endereço
             _buildTextField(label: 'Endereço, Nº', hintText: 'Rua, Número, Complemento'),
-            const SizedBox(height: 16),
+            SizedBox(height: screenHeight * 0.02),
 
             // Senha
             _buildTextField(label: 'Senha', hintText: 'Crie uma senha', obscureText: true),
-            const SizedBox(height: 16),
+            SizedBox(height: screenHeight * 0.02),
             _buildTextField(label: 'Confirmar senha', hintText: 'Digite a senha novamente', obscureText: true),
-            const SizedBox(height: 24),
+            SizedBox(height: screenHeight * 0.03),
 
             // Botão Adicionar uma foto
             OutlinedButton(
@@ -87,7 +89,7 @@ class _CadastroScreenState extends State<RegisterPage> {
                 // Lógica para adicionar foto
               },
               style: OutlinedButton.styleFrom(
-                minimumSize: const Size.fromHeight(60),
+                minimumSize: Size.fromHeight(screenHeight * 0.07),
                 side: const BorderSide(color: Colors.grey, width: 0.5),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
@@ -95,7 +97,7 @@ class _CadastroScreenState extends State<RegisterPage> {
               ),
               child: const Text('Adicionar uma foto', style: TextStyle(fontSize: 16)),
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: screenHeight * 0.03),
 
             // Checkbox e Termos de Uso
             Row(
@@ -145,7 +147,7 @@ class _CadastroScreenState extends State<RegisterPage> {
                 ),
               ],
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: screenHeight * 0.03),
 
             // Botão Criar Conta
             ElevatedButton(
@@ -155,7 +157,7 @@ class _CadastroScreenState extends State<RegisterPage> {
               } : null, // Desabilita o botão se não concordar com os termos
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white, backgroundColor: const Color(0xFF3493F2),
-                minimumSize: const Size.fromHeight(50),
+                minimumSize: Size.fromHeight(screenHeight * 0.06),
                
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
@@ -163,7 +165,7 @@ class _CadastroScreenState extends State<RegisterPage> {
               ),
               child: const Text('Criar Conta', style: TextStyle(fontSize: 18, color: Colors.white)),
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: screenHeight * 0.03),
 
             // Link Já tem uma conta?
             Row(
@@ -172,7 +174,7 @@ class _CadastroScreenState extends State<RegisterPage> {
                 const Text('Já tem uma conta?', style: TextStyle(fontSize: 16)),
               ],
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: screenHeight * 0.01),
 
             // Botão Entrar
             OutlinedButton(
@@ -181,7 +183,7 @@ class _CadastroScreenState extends State<RegisterPage> {
                 Navigator.of(context).pop();
               },
               style: OutlinedButton.styleFrom(
-                minimumSize: const Size.fromHeight(50),
+                minimumSize: Size.fromHeight(screenHeight * 0.06),
                 side: const BorderSide(color: Color(0xFF3493F2), width: 1.0),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
@@ -207,11 +209,14 @@ class _CadastroScreenState extends State<RegisterPage> {
           style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
         ),
         const SizedBox(height: 8),
-        TextField(
+        TextFormField(
           keyboardType: keyboardType,
           obscureText: obscureText,
           decoration: InputDecoration(
             hintText: hintText,
+            border: const OutlineInputBorder(),
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 16.0, horizontal: 12.0),
           ),
         ),
       ],
@@ -227,7 +232,7 @@ class _CadastroScreenState extends State<RegisterPage> {
           style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
         ),
         const SizedBox(height: 8),
-        TextField(
+        TextFormField(
           readOnly: true, // Para simular que abre um seletor de data
           decoration: InputDecoration(
             hintText: hintText,
@@ -238,6 +243,9 @@ class _CadastroScreenState extends State<RegisterPage> {
                 print('Abrir DatePicker');
               },
             ),
+            border: const OutlineInputBorder(),
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 16.0, horizontal: 12.0),
           ),
         ),
       ],
@@ -258,6 +266,7 @@ class _CadastroScreenState extends State<RegisterPage> {
           // A decoração aqui herda o estilo global do MaterialApp
           decoration: const InputDecoration(
             hintText: 'Selecione',
+            border: OutlineInputBorder(),
             contentPadding: EdgeInsets.symmetric(horizontal: 12.0),
           ),
           isExpanded: true,

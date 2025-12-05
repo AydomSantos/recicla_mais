@@ -24,6 +24,8 @@ class CollectionInProgressPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
@@ -44,6 +46,7 @@ class CollectionInProgressPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 24),
+            SizedBox(height: screenHeight * 0.03),
 
             // Informações
             _buildInfoRow('Nome', coleta.nomeSolicitante),
@@ -57,6 +60,7 @@ class CollectionInProgressPage extends StatelessWidget {
             ),
 
             const SizedBox(height: 24),
+            SizedBox(height: screenHeight * 0.03),
 
             // Botões de Ação (Foto e Chat)
             Row(
@@ -187,10 +191,12 @@ class CollectionInProgressPage extends StatelessWidget {
             ),
 
             const SizedBox(height: 24),
+            SizedBox(height: screenHeight * 0.03),
 
             // Placeholder do Mapa
             Container(
               height: 250,
+              height: screenHeight * 0.3,
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.lightBlue),
                 color: Colors.grey[200],
@@ -207,6 +213,7 @@ class CollectionInProgressPage extends StatelessWidget {
             ),
 
             const SizedBox(height: 24),
+            SizedBox(height: screenHeight * 0.03),
 
             // Botão Finalizar
             ElevatedButton(

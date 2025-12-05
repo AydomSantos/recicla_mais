@@ -13,6 +13,9 @@ class LoginCollectorPage extends StatefulWidget {
 class _LoginCollectorPageState extends State<LoginCollectorPage> {
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,  
@@ -28,22 +31,21 @@ class _LoginCollectorPageState extends State<LoginCollectorPage> {
             // Estica os elementos para preencher a largura
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              // Espaçamento no topo
-              const SizedBox(height: 80.0), 
-              
+              SizedBox(height: screenHeight * 0.08),
+
               // --- ♻️ 1. Logo/Imagem ---
               ClipOval(
                 child:
                  
                  Image.asset(
                   'assets/imagens/logo.png',
-                  height: 350, 
-                  width: 350,// Controla a altura da imagem
+                  height: screenWidth * 0.7,
+                  width: screenWidth * 0.7,
                   fit: BoxFit.cover,
                 ),
               ),
               
-              const SizedBox(height: 16.0),
+              SizedBox(height: screenHeight * 0.05),
               
               // --- 📧 2. Campo de Email ---
               const Text('Email', style: TextStyle(fontSize: 16)),
