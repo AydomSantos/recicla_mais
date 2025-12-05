@@ -108,7 +108,7 @@ class _RegisterCollectorPageState extends State<RegisterCollectorPage> {
               },
               style: OutlinedButton.styleFrom(
                 minimumSize: const Size.fromHeight(60),
-                side: const BorderSide(color: Colors.grey, width: 0.5),
+                side: const BorderSide(color: Color.fromARGB(255, 7, 85, 175), width: 0.5),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0),
                 ),
