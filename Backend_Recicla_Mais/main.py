@@ -14,6 +14,7 @@ app.add_middleware(
     allow_credentials=True,
     allow_methods=["*"],  # Permite todos os métodos (GET, POST, PUT, DELETE, etc.)
     allow_headers=["*"],  # Permite todos os headers
+    #teste
 )
 
 # --- Modelos de Dados (Espelhando o Flutter) ---
