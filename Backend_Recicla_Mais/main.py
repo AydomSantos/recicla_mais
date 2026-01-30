@@ -1066,7 +1066,22 @@ db_notifications: List[NotificationModel] = [
         type=NotificationType.error
     ),
 ]
-db_chats: List[ChatMessageModel] = []
+db_chats: List[ChatMessageModel] = [
+    ChatMessageModel(
+        id="msg_001",
+        collectionCode="20001",
+        senderId="user_123",
+        message="Olá, gostaria de confirmar o horário da coleta.",
+        timestamp=datetime(2024, 6, 1, 10, 0)
+    ),
+    ChatMessageModel(
+        id="msg_002",
+        collectionCode="20001",
+        senderId="collector_789",
+        message="Claro! A coleta está agendada para amanhã às 14h.",
+        timestamp=datetime(2024, 6, 1, 10, 5)
+    ),
+]
 
 # --- Endpoints da API ---
 
