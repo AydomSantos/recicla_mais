@@ -1043,7 +1043,29 @@ db_collections: List[CollectionModel] = [
     ),
 ]
 
-db_notifications: List[NotificationModel] = []
+db_notifications: List[NotificationModel] = [
+    NotificationModel(
+        id="notif_001",
+        userId="user_123",
+        title="Coleta Agendada",
+        message="Sua coleta com código 20001 foi agendada com sucesso.",
+        type=NotificationType.success
+    ),
+    NotificationModel(
+        id="notif_002",
+        userId="user_456",
+        title="Coleta Cancelada",
+        message="Sua coleta com código 20002 foi cancelada.",
+        type=NotificationType.warning
+    ),
+    NotificationModel(
+        id="notif_003",
+        userId="user_123",
+        title="Erro na Coleta",
+        message="Houve um problema ao processar sua coleta com código 20003.",
+        type=NotificationType.error
+    ),
+]
 db_chats: List[ChatMessageModel] = []
 
 # --- Endpoints da API ---
