@@ -47,11 +47,11 @@ class UserResponseModel(BaseModel):
     telefone: Optional[str] = None
     userType: UserType = UserType.citizen
     fotoUrl: Optional[str] = None
-
+# Modelo de Login de Usuário
 class UserLoginModel(BaseModel):
     email: str
     senha: str
-
+# Status da Coleta
 class CollectionStatus(str, Enum):
     available = "available"
     pending = "pending"
@@ -59,6 +59,7 @@ class CollectionStatus(str, Enum):
     approved = "approved"
     rejected = "rejected"
 
+# Modelo de Coleta
 class CollectionModel(BaseModel):
     collectionCode: str
     tempoColeta: str
@@ -77,12 +78,14 @@ class CollectionModel(BaseModel):
     latitude: Optional[float] = None
     longitude: Optional[float] = None
 
+# Tipo de Notificação
 class NotificationType(str, Enum):
     info = "info"
     success = "success"
     warning = "warning"
     error = "error"
 
+# Modelo de Notificação
 class NotificationModel(BaseModel):
     id: str
     userId: str
@@ -92,6 +95,7 @@ class NotificationModel(BaseModel):
     isRead: bool = False
     timestamp: datetime = Field(default_factory=datetime.now)
 
+# Modelo de Mensagem de Chat
 class ChatMessageModel(BaseModel):
     id: str
     text: str
