@@ -39,9 +39,9 @@ class _CollectorHomePageState extends State<CollectorHomePage> {
   Future<void> _loadData() async {
     setState(() => _isLoading = true);
     try {
-      // Busca coletas aprovadas pelo admin
+      // Busca coletas disponíveis
       final disponiveis = await CollectionRepository.getCollections(
-        status: 'approved',
+        status: 'available',
       );
 
       // Busca coletas pendentes e concluídas para o histórico
